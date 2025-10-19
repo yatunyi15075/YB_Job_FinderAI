@@ -281,10 +281,11 @@ export default function JobFinderApp() {
                 <AlertCircle className="w-10 h-10 text-gray-400" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">No Jobs Found</h3>
-              <p className="text-gray-600 mb-6">We couldn't find any jobs matching your search criteria.</p>
+              <p className="text-gray-600 mb-6">We couldn&apos;t find any jobs matching your search criteria.</p>
               <p className="text-sm text-gray-500">Try adjusting your search terms or location for better results.</p>
             </div>
           )}
+
           
           {!loading && !hasSearched && jobs.length === 0 && (
             <div className="text-center py-12 bg-white rounded-xl shadow-md">
