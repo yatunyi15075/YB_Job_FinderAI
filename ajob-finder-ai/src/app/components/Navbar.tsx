@@ -1,4 +1,4 @@
-import { useUser, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { useUser, UserButton } from "@clerk/nextjs";
 import { Briefcase, LogIn, History } from "lucide-react";
 
 interface NavbarProps {
@@ -21,7 +21,7 @@ export default function Navbar({ onHistoryClick, onAuthClick }: NavbarProps) {
               JobFinder AI
             </span>
           </div>
-          
+
           <div className="flex items-center gap-4">
             {isSignedIn && (
               <button

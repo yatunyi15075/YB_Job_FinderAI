@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { History, XCircle, MapPin, Trash2 } from "lucide-react";
 
 interface Application {
@@ -21,14 +21,13 @@ export default function HistoryModal({ isOpen, onClose, userId, showToast }: His
   const [applicationHistory, setApplicationHistory] = useState<Application[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
     if (!userId) return;
-    
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/applications/history/${userId}`);
+      const res = await fetch(`https://your-backend-url.vercel.app/api/applications/history/${userId}`);
       const data = await res.json();
-      
+
       if (data.success) {
         setApplicationHistory(data.applications || []);
       }
@@ -38,14 +37,14 @@ export default function HistoryModal({ isOpen, onClose, userId, showToast }: His
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId, showToast]);
 
   const deleteFromHistory = async (applicationId: string) => {
     if (!userId) return;
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/applications/history/${userId}/${applicationId}`,
+        `https://your-backend-url.vercel.app/api/applications/history/${userId}/${applicationId}`,
         { method: "DELETE" }
       );
 
@@ -67,7 +66,7 @@ export default function HistoryModal({ isOpen, onClose, userId, showToast }: His
     if (isOpen && userId) {
       fetchHistory();
     }
-  }, [isOpen, userId]);
+  }, [isOpen, userId, fetchHistory]);
 
   if (!isOpen) return null;
 
@@ -95,7 +94,7 @@ export default function HistoryModal({ isOpen, onClose, userId, showToast }: His
               <History className="w-10 h-10 text-gray-400" />
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No Applications Yet</h3>
-            <p className="text-gray-600">Start applying to jobs and they'll appear here</p>
+            <p className="text-gray-600">Start applying to jobs and they&apos;ll appear here</p>
           </div>
         ) : (
           <div className="space-y-3 max-h-96 overflow-y-auto">
@@ -114,7 +113,12 @@ export default function HistoryModal({ isOpen, onClose, userId, showToast }: His
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <a href={app.job_url} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:text-indigo-800 text-sm underline">
+                    <a
+                      href={app.job_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-indigo-600 hover:text-indigo-800 text-sm underline"
+                    >
                       View Job
                     </a>
                     <button onClick={() => deleteFromHistory(app.id)} className="text-red-500 hover:text-red-700">
