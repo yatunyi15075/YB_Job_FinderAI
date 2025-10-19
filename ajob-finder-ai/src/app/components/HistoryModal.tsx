@@ -25,7 +25,7 @@ export default function HistoryModal({ isOpen, onClose, userId, showToast }: His
     if (!userId) return;
     setLoading(true);
     try {
-      const res = await fetch(`https://your-backend-url.vercel.app/api/applications/history/${userId}`);
+      const res = await fetch(`https://yb-job-finderai-1.onrender.com/api/applications/history/${userId}`);
       const data = await res.json();
 
       if (data.success) {
@@ -44,7 +44,7 @@ export default function HistoryModal({ isOpen, onClose, userId, showToast }: His
 
     try {
       const res = await fetch(
-        `https://your-backend-url.vercel.app/api/applications/history/${userId}/${applicationId}`,
+        `https://yb-job-finderai-1.onrender.com/api/applications/history/${userId}/${applicationId}`,
         { method: "DELETE" }
       );
 

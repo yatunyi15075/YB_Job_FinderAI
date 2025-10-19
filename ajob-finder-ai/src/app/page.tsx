@@ -76,7 +76,7 @@ export default function JobFinderApp() {
     setHasSearched(false);
     
     try {
-      const res = await fetch("http://localhost:5000/api/jobs/find", {
+      const res = await fetch("https://yb-job-finderai-1.onrender.com/api/jobs/find", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ profession, location }),
@@ -110,7 +110,7 @@ export default function JobFinderApp() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/applications/apply", {
+      const res = await fetch("https://yb-job-finderai-1.onrender.com/api/applications/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
